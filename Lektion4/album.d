@@ -1,0 +1,1 @@
+album.o: album.cpp

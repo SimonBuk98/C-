@@ -1,0 +1,1 @@
+Opgaver.o: Opgaver.cpp

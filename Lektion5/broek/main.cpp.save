@@ -1,0 +1,11 @@
+#include <iostream>
+#include <string>
+#include "broek.h"
+
+
+
+int main(int argc, char** argv){
+	Broek broek(6,12);
+	std::cout << broek.getTaeller() << std::endl;
+
+ }
