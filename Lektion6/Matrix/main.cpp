@@ -14,6 +14,7 @@ int main()
 			mat.set(r, c, r * c);
 		}
 	}
+	
 	mat.print();
 	matCopy.print();
 	Matrix matAdd = mat.add(&mat);
