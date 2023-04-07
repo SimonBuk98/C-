@@ -9,18 +9,20 @@ class Matrix
 public:
   Matrix();
   Matrix(int rows, int cols, double val = 0);
-  int getRow();
+  int getRows();
   int getCols();
   virtual void print();
-  void set(int r, int c, double val);
   double& at(int r, int c);
+  virtual void transpose();
   Matrix add(Matrix matrix);
   Matrix multiply(Matrix matrix);
-  Matrix transpose();
+  double& operator() (int i, int j);
+  Matrix operator+ (Matrix m);
+  Matrix operator* (Matrix m);
 
 private:
   int rows;
   int cols;
-  std::vector<std::vector<double>> data;
+  std::vector<double> data;
 };
 #endif

@@ -4,18 +4,13 @@ Matrix::Matrix(int _rows, int _cols, double _val)
 {
   rows = _rows;
   cols = _cols;
-  for (int i = 0; i < rows; i++)
+  for (int i = 0; i < rows*cols; i++)
   {
-    std::vector<double> tempV;
-    for (int j = 0; j < cols; j++)
-    {
-      tempV.push_back(_val);
-    }
-    data.push_back(tempV);
+    data.push_back(_val);
   }
 }
 
-int Matrix::getRow(){
+int Matrix::getRows(){
   return rows;
 }
 
@@ -30,21 +25,17 @@ void Matrix::print()
   {
     for (int j = 0; j < cols; j++)
     {
-      std::cout << data[i][j] << " ";
+      std::cout << data[i*cols+j] << " ";
     }
     std::cout << std::endl;
   }
   std::cout << std::endl;
 }
 
-void Matrix::set(int r, int c, double val)
-{
-  data[r][c] = val;
-}
 
-double& Matrix::at(int r, int c)
+double& Matrix::at(int i, int j)
 {
-  return data[r][c];
+  return data[i*cols+j];
 }
 
 Matrix Matrix::add(Matrix matrix)
@@ -57,7 +48,7 @@ Matrix Matrix::add(Matrix matrix)
     {
       for (int j = 0; j < cols; j++)
       {
-        tempM.set(i, j, data[i][j] + matrix.data[i][j]);
+        tempM.at(i, j)= data[i*cols+j] + matrix.data[i*cols+j];
       }
     }
   }
@@ -76,25 +67,48 @@ Matrix Matrix::multiply(Matrix matrix)
         int sum = 0;
         for (int k = 0; k < matrix.rows; k++)
         {
-
-          sum += (data[i][k] * matrix.data[k][j]);
+          sum += (data[i*cols+k] * matrix.data[k*matrix.cols+j]);
         }
-        tempM.set(i, j, sum);
+        tempM.at(i, j) = sum;
       }
     }
   }
   return tempM;
 }
 
-Matrix Matrix::transpose()
+void Matrix::transpose()
 {
-  Matrix tempM(cols, rows);
-  for (int i = 0; i < rows; i++)
+  Matrix tempM(rows, cols);
+
+  for (int i = 0; i < tempM.rows; i++)
   {
-    for (int j = 0; j < cols; j++)
+    for (int j = 0; j < tempM.cols; j++)
     {
-      tempM.data[j][i] = data[i][j];
+      tempM.data[i*cols+j] = data[i*cols+j];
     }
   }
-  return tempM;
+  rows = cols;
+  cols = tempM.rows; 
+  for (int r = 0; r < tempM.rows; r++)
+    {
+      for (int c = 0; c < tempM.cols; c++)
+      {
+        data[c*tempM.rows+r] = tempM.data[r*tempM.cols+c];
+      }
+    }
+
+}
+
+
+
+double& Matrix::operator()(int i, int j){
+  return at(i,j);
+}
+
+Matrix Matrix::operator+ (Matrix m){
+  return add(m);
+}
+
+Matrix Matrix::operator* (Matrix m){
+  return multiply(m);
 }
