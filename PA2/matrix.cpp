@@ -4,20 +4,21 @@ Matrix::Matrix(int _rows, int _cols, double _val)
 {
   rows = _rows;
   cols = _cols;
-  for (int i = 0; i < rows*cols; i++)
+  for (int i = 0; i < rows * cols; i++)
   {
     data.push_back(_val);
   }
 }
 
-int Matrix::getRows(){
+int Matrix::getRows()
+{
   return rows;
 }
 
-int Matrix::getCols(){
+int Matrix::getCols()
+{
   return cols;
 }
-
 
 void Matrix::print()
 {
@@ -25,17 +26,16 @@ void Matrix::print()
   {
     for (int j = 0; j < cols; j++)
     {
-      std::cout << data[i*cols+j] << " ";
+      std::cout << data[i * cols + j] << " ";
     }
     std::cout << std::endl;
   }
   std::cout << std::endl;
 }
 
-
-double& Matrix::at(int i, int j)
+double &Matrix::at(int i, int j)
 {
-  return data[i*cols+j];
+  return data[i * cols + j];
 }
 
 Matrix Matrix::add(Matrix matrix)
@@ -48,7 +48,7 @@ Matrix Matrix::add(Matrix matrix)
     {
       for (int j = 0; j < cols; j++)
       {
-        tempM.at(i, j)= data[i*cols+j] + matrix.data[i*cols+j];
+        tempM.at(i, j) = data[i * cols + j] + matrix.data[i * cols + j];
       }
     }
   }
@@ -64,10 +64,10 @@ Matrix Matrix::multiply(Matrix matrix)
     {
       for (int j = 0; j < matrix.cols; j++)
       {
-        int sum = 0;
+        double sum = 0;
         for (int k = 0; k < matrix.rows; k++)
         {
-          sum += (data[i*cols+k] * matrix.data[k*matrix.cols+j]);
+          sum += (data[i * cols + k] * matrix.data[k * matrix.cols + j]);
         }
         tempM.at(i, j) = sum;
       }
@@ -76,39 +76,57 @@ Matrix Matrix::multiply(Matrix matrix)
   return tempM;
 }
 
+Matrix Matrix::skalar(double v)
+{
+  Matrix temp(rows,cols);
+  for (int i = 0; i < rows; i++)
+  {
+    for (int j = 0; j < cols; j++)
+    {
+      temp.at(i,j) = data[i*cols+j]*v;
+    }
+  }
+  return temp;
+}
+
 void Matrix::transpose()
 {
   Matrix tempM(rows, cols);
 
-  for (int i = 0; i < tempM.rows; i++)
+  for (int i = 0; i < rows; i++)
   {
-    for (int j = 0; j < tempM.cols; j++)
+    for (int j = 0; j < cols; j++)
     {
-      tempM.data[i*cols+j] = data[i*cols+j];
+      tempM.data[i * cols + j] = data[i * cols + j];
     }
   }
   rows = cols;
-  cols = tempM.rows; 
+  cols = tempM.rows;
   for (int r = 0; r < tempM.rows; r++)
+  {
+    for (int c = 0; c < tempM.cols; c++)
     {
-      for (int c = 0; c < tempM.cols; c++)
-      {
-        data[c*tempM.rows+r] = tempM.data[r*tempM.cols+c];
-      }
+      data[c * tempM.rows + r] = tempM.data[r * tempM.cols + c];
     }
-
+  }
 }
 
-
-
-double& Matrix::operator()(int i, int j){
-  return at(i,j);
+double &Matrix::operator()(int i, int j)
+{
+  return at(i, j);
 }
 
-Matrix Matrix::operator+ (Matrix m){
+Matrix Matrix::operator+(Matrix m)
+{
   return add(m);
 }
 
-Matrix Matrix::operator* (Matrix m){
+Matrix Matrix::operator*(Matrix m)
+{
   return multiply(m);
+}
+
+Matrix Matrix::operator*(double v)
+{
+  return skalar(v);
 }
