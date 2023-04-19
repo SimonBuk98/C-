@@ -12,15 +12,15 @@ public:
   int getRows();
   int getCols();
   virtual void print();
-  double& at(int r, int c);
+  double &at(int r, int c);
   virtual void transpose();
   Matrix add(Matrix matrix);
   Matrix multiply(Matrix matrix);
   Matrix skalar(double v);
-  double& operator() (int i, int j);
-  Matrix operator+ (Matrix m);
-  Matrix operator* (Matrix m);
-  Matrix operator* (double v);
+  double &operator()(int i, int j);
+  Matrix operator+(Matrix m);
+  Matrix operator*(Matrix m);
+  Matrix operator*(double v);
 
 private:
   int rows;

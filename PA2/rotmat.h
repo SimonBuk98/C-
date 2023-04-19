@@ -4,15 +4,15 @@
 #include <vector>
 #include "matrix.h"
 
-class RotMat2D : public Matrix{
+class RotMat2D : public Matrix
+{
 public:
-RotMat2D();
-RotMat2D(double angle);
-void print();
-void transpose();
+    RotMat2D();
+    RotMat2D(double angle);
+    virtual void print();
+    virtual void transpose();
 
 private:
-double angle;
-
+    double angle;
 };
 #endif

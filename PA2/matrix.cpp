@@ -78,12 +78,12 @@ Matrix Matrix::multiply(Matrix matrix)
 
 Matrix Matrix::skalar(double v)
 {
-  Matrix temp(rows,cols);
+  Matrix temp(rows, cols);
   for (int i = 0; i < rows; i++)
   {
     for (int j = 0; j < cols; j++)
     {
-      temp.at(i,j) = data[i*cols+j]*v;
+      temp.at(i, j) = data[i * cols + j] * v;
     }
   }
   return temp;
