@@ -19,7 +19,7 @@ private:
     float m;
 
 public:
-    particle(float m, Matrix p = Matrix(2, 1), Matrix v = Matrix(2, 1));
+    Particle(float m, Matrix p = Matrix(2, 1), Matrix v = Matrix(2, 1));
     void setPosition(Matrix p);
     void setVelocity(Matrix v);
     void setForce(Matrix f);

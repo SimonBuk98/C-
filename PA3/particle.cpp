@@ -33,12 +33,8 @@ void Particle::setForce(Matrix _f)
 }
 void Particle::update(float dt){
     p = p + v*dt;
-    v = v*f(1.0/m);
+    v = v*f*(1.0/m);
 }
 
-
 void Particle::print(){
-    std::cout << "Masse: " << m << std::endl;
-    std::cout << "Position: " << p << std::endl;
-    std::cout << "Hastighed: " << v << std::endl;
 }
