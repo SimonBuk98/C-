@@ -1,6 +1,6 @@
 #include "particle.h"
 
-Particle::Particle(float _m, Matrix _p, Matrix _v) : m(_m), p(_p), v(_v) {}
+Particle::Particle(float _m, Matrix _p, Matrix _v) : m(_m), p(_p), v(_v),f(Matrix (2,1)) {}
 
 Matrix Particle::getPosition()
 {
@@ -33,8 +33,11 @@ void Particle::setForce(Matrix _f)
 }
 void Particle::update(float dt){
     p = p + v*dt;
-    v = v*f*(1.0/m);
+    v = v + f*(1.0/m);
 }
 
 void Particle::print(){
+    std::cout << m << std::endl;
+    p.print();
+    v.print();
 }
