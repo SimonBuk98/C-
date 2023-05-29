@@ -56,21 +56,19 @@ void ParticleSystem::draw()
 
 void ParticleSystem::simulate(int fps)
 {
-    // Compute how many updates to do pr. frame
     float updatesPerSecond = 1.0 / dt;
     float secondsPerFrame = 1.0 / float(fps);
     float updatesPerFrame = updatesPerSecond * secondsPerFrame;
 
     while (1)
     {
-        // Update the clock's internal state and draw the frame
+
         for (int i = 0; i < updatesPerFrame; i++)
         {
             update();
         }
         draw();
 
-        // Wait for the next frame
         float millisecondsPerFrame = 1000.0 * secondsPerFrame;
         char key = cv::waitKey(millisecondsPerFrame);
         if (key == 'q')
